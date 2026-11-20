@@ -99,6 +99,25 @@
     list.appendChild(el('li', { html: '<b>Reach multiplier:</b> 1.00 for one chain, +' + m.reach_per_chain.toFixed(2) + ' per extra chain, up to ' + (1 + m.reach_max_extra * m.reach_per_chain).toFixed(2) + '. More chains means more surface for a launch.' }));
     list.appendChild(el('li', { html: '<b>Radar Score (0–100)</b> explains the rank: scale 40 (log TVL), momentum 20 (7-day growth), maturity 15 (age), reach 10 (chains), category 15 (peer multiple). The score explains; the implied value ranks.' }));
     box.appendChild(list);
+    var top = DATA.rows[0];
+    if (top) {
+      box.appendChild(el('p', {
+        html: '<b>Worked example — #' + top.rank + ' ' + esc(top.name) + '.</b> The same arithmetic, with the top row\u2019s own figures, so a reader can check it against the detail view: ' + esc(top.why),
+      }));
+      var math = el('div', { class: 'math' });
+      math.appendChild(document.createTextNode(
+        'TVL $' + top.tvl_usd.toLocaleString('en-US') + '\n' +
+        'x peer multiple ' + top.peer_multiple.toFixed(4) + '  (category median mcap/TVL)\n' +
+        'x growth ' + top.growth_multiplier.toFixed(4) + '  (' + fmtPct(top.change_7d) + ' over 7 days)\n' +
+        'x maturity ' + top.maturity_multiplier.toFixed(4) + '  (' + fmtAge(top.age_days) + ' with no token)\n' +
+        'x reach ' + top.reach_multiplier.toFixed(4) + '  (' + top.chains.length + ' chain' + (top.chains.length === 1 ? '' : 's') + ')\n' +
+        '= implied value $' + top.implied_value_usd.toLocaleString('en-US')
+      ));
+      box.appendChild(math);
+      box.appendChild(el('p', {
+        text: 'Its Radar Score is ' + top.score.total.toFixed(1) + ' / 100 — scale ' + top.score.scale.toFixed(1) + ', momentum ' + top.score.momentum.toFixed(1) + ', maturity ' + top.score.maturity.toFixed(1) + ', reach ' + top.score.reach.toFixed(1) + ', category ' + top.score.category.toFixed(1) + '.',
+      }));
+    }
   }
 
   function renderFoot() {
