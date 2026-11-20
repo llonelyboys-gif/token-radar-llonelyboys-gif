@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied launch value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">TOKEN RADAR &middot; MODEL RADAR-2</p>
+    <h1>Which tokenless protocol is worth farming next?</h1>
+    <p class="lede">Every protocol below records no token yet. Each is ranked by an implied launch
+    value derived from its own figures — TVL, seven-day growth, age, chain reach, and what
+    live-token peers in its category actually trade for. Click any row for the full
+    breakdown and its farm plan.</p>
+    <dl class="stats" id="stats"></dl>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="model" id="model" aria-label="How the ranking works"></section>
+
+  <section class="controls" aria-label="Board controls">
+    <div class="tabs" role="tablist">
+      <button type="button" id="tab-pre" class="tab is-active" role="tab" aria-selected="true">Pre-token board</button>
+      <button type="button" id="tab-live" class="tab" role="tab" aria-selected="false">Live-token comparables</button>
+    </div>
+    <label class="field">Search
+      <input type="search" id="q" placeholder="Name or slug…" autocomplete="off">
+    </label>
+    <label class="field">Category
+      <select id="cat"><option value="all">All categories</option></select>
+    </label>
+    <label class="field">Chain
+      <select id="chain"><option value="all">All chains</option></select>
+    </label>
+    <label class="field">Sort by
+      <select id="sort">
+        <option value="implied">Implied value</option>
+        <option value="tvl">TVL</option>
+        <option value="growth">7-day growth</option>
+        <option value="score">Radar Score</option>
+        <option value="name">Name</option>
+      </select>
+    </label>
+  </section>
+
+  <section id="board-view">
+    <p class="count" id="count"></p>
+    <div class="table-wrap">
+      <table class="board" id="board">
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Protocol</th>
+            <th>Category</th>
+            <th class="num">TVL</th>
+            <th class="num">7d</th>
+            <th class="num">Implied value</th>
+            <th class="num">Radar Score</th>
+            <th>Why this rank</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="hint">Rows are ranked by implied value. Sort, filter, or search to narrow the board;
+    click a row to open its detail view below.</p>
+  </section>
+
+  <section id="detail" class="detail" hidden aria-label="Protocol detail"></section>
+
+  <section id="live-view" hidden>
+    <p class="count" id="live-count"></p>
+    <p class="note">These protocols already have a token, so the market — not this model — sets
+    their value. Their market-cap-to-TVL ratios are the comparables that set each
+    category's peer multiple.</p>
+    <div class="table-wrap">
+      <table class="board" id="live-board">
+        <thead>
+          <tr>
+            <th>Protocol</th>
+            <th>Category</th>
+            <th class="num">TVL</th>
+            <th class="num">Market cap</th>
+            <th class="num">MCap / TVL</th>
+            <th class="num">7d</th>
+          </tr>
+        </thead>
+        <tbody id="live-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="foot" id="foot"></footer>
+</main>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
